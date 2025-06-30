@@ -5,6 +5,6 @@ Understanding the difficulties and opportunities during this period, our group d
 Dataset name: Flight Delay and Cancellation Dataset (2019-2023).
 - Author: Patrick Zelazko on Kaggle platform.
 - The dataset describes information about flight delays and cancellations between August 2019 and August 2023, provided by the US Bureau of Transportation Statistics (BTS).
-- Kho dữ liệu gồm 29,380,334 dòng và 32 thuộc tính.
+- The database consists of 29,380,334 rows and 32 attributes.
 
 Link download dataset: https://www.kaggle.com/datasets/patrickzel/flight-delay-and-cancellation-dataset-2019-2023
