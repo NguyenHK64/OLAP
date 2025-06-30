@@ -1,0 +1,82 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>SSAS_FlightSample</Database>
+    <Server>DESKTOP-BHGQ0JN\PCCUANGUYEN</Server>
+    <ConnectionString>Data Source=DESKTOP-BHGQ0JN\PCCUANGUYEN;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>8fZ9iYtN/KboYbnzCLGC1fIUZJY=10/25/2024 12:46:18 AM10/25/2024 12:46:18 AM</TimeStamp>
+        <ID>
+          <String>Flight Sample</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>+MWxgFkTohQwatrvqE55TYmoiJs=10/25/2024 12:46:33 AM10/25/2024 12:46:33 AM</TimeStamp>
+        <ID>
+          <String>Flight Sample</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>D6Xba1ynH6frtjw2+8Iq7qkUoT8=10/25/2024 12:53:11 AM10/25/2024 12:47:33 AM</TimeStamp>
+        <ID>
+          <String>Time Dim</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>TqLWRrsNRoQrlnI/U3on/TmkFEk=10/25/2024 12:47:53 AM10/25/2024 12:47:53 AM</TimeStamp>
+        <ID>
+          <String>Destination Dim</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>VxvsH+j4CC9PW4KeP+F84Sb1wyM=10/25/2024 12:47:53 AM10/25/2024 12:47:53 AM</TimeStamp>
+        <ID>
+          <String>Origin Dim</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>qvFd4ms9anMce4FdaYbGQnIrLDI=10/25/2024 12:47:53 AM10/25/2024 12:47:53 AM</TimeStamp>
+        <ID>
+          <String>Airline Dim</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>9vpDtLMzMVwdS5JKEE27xrezkok=10/25/2024 12:53:11 AM10/25/2024 12:47:53 AMLvRKC+LEvT+eYY76uMpLxzO0fgg=10/25/2024 12:47:53 AM10/25/2024 12:47:53 AM</TimeStamp>
+        <ID>
+          <String>Flight Sample</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>cBj4+WziKoqncNdEbzfKUvXKh64=10/25/2024 12:42:54 AM10/25/2024 12:42:54 AM</TimeStamp>
+      <ID>
+        <String>SSAS_FlightSample</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2024-10-24T17:53:21.163333Z</LastDeployed>
+</DeploymentSnapshot>

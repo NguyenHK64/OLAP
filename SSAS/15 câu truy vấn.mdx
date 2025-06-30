@@ -1,0 +1,272 @@
+﻿// Cau 1 Tính tổng số chuyến bay có độ trễ khi khởi hành (DEP_DELAY > 0) theo từng hãng hàng không
+WITH MEMBER [Measures].[Delayed Flights] AS
+    SUM(
+        FILTER(
+            [Flight Dim].[Flight Id].[Flight Id].MEMBERS,
+            [Measures].[DEP DELAY] > 0
+        ),
+        [Measures].[Fact Count]
+    )
+SELECT
+    {[Measures].[Delayed Flights]} ON COLUMNS,
+    [Airline Dim].[AIRLINE CODE].[AIRLINE CODE].MEMBERS ON ROWS
+FROM [FilghtDelay]
+//Cau 2 
+//tìm ra 10 chuyến bay có tổng thời gian trễ lớn nhất, 
+//dựa trên thời gian trễ khi khởi hành (Departure Delay) 
+// và thời gian trễ khi đến (Arrival Delay)
+WITH MEMBER [Measures].[Departure Delay] AS
+    [Measures].[DEP DELAY]
+
+MEMBER [Measures].[Arrival Delay] AS
+    [Measures].[ARR DELAY]
+
+SELECT
+    {[Measures].[DEP DELAY],[Measures].[ARR DELAY]} ON COLUMNS,
+    TOPCOUNT(
+        [Flight Dim].[Flight Id].[Flight Id].MEMBERS,
+        10, 
+        [Measures].[DEP DELAY] + [Measures].[ARR DELAY]
+    ) ON ROWS	
+FROM [FilghtDelay]
+//cau 3 Liệt kê hai sân bay đến có số lượng chuyến bay nhiều nhất trong mỗi năm từ 2019 đến 2023
+With member [Number of Flights] AS [Measures].[Fact Count]
+
+SELECT 
+  [Number of Flights] ON COLUMNS,
+GENERATE(
+    {
+        [Time Dim].[Year].&[2019],
+        [Time Dim].[Year].&[2020],
+        [Time Dim].[Year].&[2021],
+        [Time Dim].[Year].&[2022],
+        [Time Dim].[Year].&[2023]
+    },
+    TOPCOUNT(
+        [Time Dim].[Year].CURRENTMEMBER * [Dest Dim].[DEST CITY].[DEST CITY].Members, 
+        2, 
+        [Measures].[Fact Count]
+    )
+) ON ROWS
+FROM [FilghtDelay]
+
+
+	//cau 4. Top 5 chuyến bay có thời gian bay dài nhất theo khoảng cách bay, hiển thị [ARR TIME]
+	SELECT
+  TOPCOUNT([Flight Dim].[Flight Id].[Flight Id].MEMBERS, 5, [Measures].[DISTANCE]) ON ROWS,
+  {[Measures].[Distance],[Measures].[ARR TIME]}  ON COLUMNS
+FROM [FilghtDelay]
+
+// 5. Liệt kê top 10 chuyến bay có chênh lệch thời gian hạ cánh lớn nhất so với thời gian hạ cánh dự kiến
+
+WITH MEMBER [Measures].[ChenhlechThoiGianBayVaThucTe] AS 
+   [Measures].[ARR TIME]-[Measures].[CRS ARR TIME]
+
+SELECT
+    TOPCOUNT(
+      [Flight Dim].[Flight Id].MEMBERS,10, 
+       [Measures].[ChenhlechThoiGianBayVaThucTe]
+    ) ON ROWS,
+    {
+       [Measures].[CRS ARR TIME],[Measures].[ARR TIME],  [Measures].[ChenhlechThoiGianBayVaThucTe]
+    } ON COLUMNS
+FROM 
+    [FilghtDelay]
+
+//6 Liệt kê chuyến bay khởi hành trước giờ dự kiến sớm nhất trong 4 quý năm 2019
+SELECT
+generate([Time Dim].[Quarter].[Quarter].members,
+{Bottomcount(
+        [Time Dim].[Quarter].currentmember *  [Flight Dim].[Flight Id].[Flight Id].MEMBERS,
+		1,
+        [Measures].[DEP DELAY])
+  })
+   ON ROWS,
+  [Measures].[DEP DELAY] ON COLUMNS
+FROM [FilghtDelay]
+where [Time Dim].[Year_Quater].[Year].&[2019]
+
+
+
+// 7 Top 10 điểm đến (Destination City) có số lượng chuyến bay đến nhiều nhất trong năm 2022, 
+//hiển thị tổng số chuyến bay và số chuyến bay khởi hành bị trễ tại mỗi điểm đến.
+
+WITH
+-- Tính tổng số chuyến bay
+MEMBER [Measures].[Total Flights] AS 
+		SUM(
+			[Flight Dim].[Flight ID].[Flight ID].Members, 
+			[Measures].[Fact Count]
+		)
+MEMBER [Measures].[Percent of Delayed Flights] AS
+    IIF(
+        [Measures].[Total Flights] > 0,
+        ([Measures].[Delayed Flights] / [Measures].[Total Flights]) * 100,
+        NULL
+    )
+
+
+SELECT
+    { 
+        [Measures].[Total Flights], 
+        [Measures].[Delayed Flights],
+		[Measures].[Percent of Delayed Flights]
+    } ON COLUMNS,
+
+    TOPCOUNT(
+        [Dest Dim].[DEST CITY].[DEST CITY].Members,
+        10, 
+        [Measures].[Total Flights]
+    ) ON ROWS
+FROM [FilghtDelay]
+WHERE ([Time Dim].[Year].[2022])
+
+
+//8 Hiển thị tất cả các chuyến bay với thời gian chuyến bay vượt quá 600 phút trong quý 3 2023
+SELECT
+  FILTER(
+    [Flight Dim].[Flight Id].[Flight Id].Members,
+    [Measures].[AIR TIME] > 600
+  ) ON ROWS,
+  [Measures].[AIR TIME] ON COLUMNS
+FROM [FilghtDelay]
+
+
+
+where [Time Dim].[Year_Quater].[Quarter].&[3]&[2023]
+ //9  Số lượng chuyến bay từ mỗi hãng hàng không theo năm
+ SELECT
+    [Measures].[Fact Count] ON COLUMNS,
+    Nonempty([Time Dim].[Year].[Year].MEMBERS * [Time Dim].[Quarter].[Quarter].MEMBERS * 
+	[Airline Dim].[AIRLINE CODE].[AIRLINE CODE].MEMBERS) ON ROWS
+FROM [FilghtDelay]
+    
+
+//10. Xác định 4 chuyến bay có thời gian taxi in lâu nhất
+SELECT
+  TOPCOUNT([Flight Dim].[Flight Id].[Flight Id].MEMBERS, 4, [Measures].[TAXI IN]) ON ROWS,
+  [Measures].[Taxi In] ON COLUMNS
+FROM [FilghtDelay]
+	
+
+//11 Tính tổng số chuyến bay và tổng thời gian bay đến các thành phố New York và Los Angeles,
+//theo từng quý từ năm 2021 đến 2023, dành riêng cho hãng hàng không có mã là "AA".
+WITH 
+MEMBER [Measures].[Total Air Time] AS 
+    SUM(
+        [Flight Dim].[Flight ID].Members, 
+        [Measures].[ARR TIME]  -- Hoặc trường thời gian bay tương ứng
+    )
+	MEMBER  [Number of Flights] AS [Measures].[Fact Count]
+
+	SELECT 
+    {
+       [Number of Flights] , 
+        [Measures].[Total Air Time]
+    } ON COLUMNS, 
+    NONEMPTY(
+        {[Time Dim].[Year].&[2021]:[Time Dim].[Year].&[2023]} *
+        [Time Dim].[Quarter].Children*
+        {
+             [Dest Dim].[DEST CITY].&[New York, NY]
+        }
+    ) ON ROWS
+FROM 
+    [FilghtDelay]
+WHERE 
+   [Airline Dim].[AIRLINE CODE].&[AA] 
+   //12  thời gian bay và thời gian trễ của các chuyến bay 
+   //trong khoảng thời gian từ năm 2021 đến 2023.
+   WITH 
+MEMBER [Measures].[Total Air Time] AS 
+    SUM(
+        [Flight Dim].[Flight ID].Members, 
+        [Measures].[ARR TIME]
+    )
+MEMBER [Measures].[Total Arrival Delay] AS 
+    SUM(
+        [Flight Dim].[Flight ID].Members, 
+        [Measures].[ARR DELAY]
+    )
+SELECT 
+    {
+        [Measures].[Total Air Time], 
+        [Measures].[Total Arrival Delay]
+    } ON COLUMNS, 
+    NONEMPTY(
+        [Airline Dim].[AIRLINE CODE].[AIRLINE CODE].Members
+        
+    ) ON ROWS
+FROM [FilghtDelay]
+   where [Time Dim].[Year].&[2021]:[Time Dim].[Year].&[2023]
+
+	//13  ttổng thời gian Taxi out của các chuyến bay từ hãng AA và DL, không phân biệt thành phố đến.
+	WITH 
+MEMBER [Measures].[Total Taxi out] AS 
+    SUM(
+        [Flight Dim].[Flight ID].Members, 
+       [Measures].[TAXI OUT]
+    )
+
+SELECT 
+    {[Measures].[Total Taxi out]} ON COLUMNS, 
+    {[Airline Dim].[AIRLINE CODE].&[AA], [Airline Dim].[AIRLINE CODE].&[DL]} ON ROWS
+FROM [FilghtDelay]
+    
+
+
+	// 14  tính tổng số chuyến bay và tổng thời gian bay của các chuyến bay dưới 1 giờ 
+	// từ các hãng hàng không AA, DL, UA trong các năm 2020 đến 2023.
+	WITH 
+MEMBER [Measures].[Flight Count] AS 
+    COUNT(
+        FILTER(
+            [Flight Dim].[Flight ID].Members,
+            [Measures].[AIR TIME] < 60  -- Điều kiện thời gian bay dưới 1 giờ
+        )
+    )
+
+MEMBER [Measures].[Total Air Time] AS 
+    SUM(
+        FILTER(
+            [Flight Dim].[Flight ID].Members,
+            [Measures].[AIR TIME] < 60
+        ),
+        [Measures].[AIR TIME]
+    )
+
+SELECT 
+    {[Measures].[Flight Count], [Measures].[Total Air Time]} ON COLUMNS, 
+    NONEMPTY(
+        {
+            [Airline Dim].[AIRLINE CODE].&[AA], 
+            [Airline Dim].[AIRLINE CODE].&[DL], 
+            [Airline Dim].[AIRLINE CODE].&[UA]
+        } *
+        {[Time Dim].[Year].&[2020]:[Time Dim].[Year].&[2023]}
+    ) ON ROWS
+FROM [FilghtDelay]
+    
+
+	//15 tính tổng thời gian bay thực tế (ELAPSED TIME) và tổng thời gian bay theo lịch trình (CRS ELAPSED TIME) 
+	//cho các chuyến bay trong giai đoạn từ năm 2020 đến 2023. 
+	//Kết quả được hiển thị theo cấu trúc drilldown từ cấp năm xuống cấp quý.
+WITH 
+MEMBER [Measures].[Total Elapsed Time] AS 
+    SUM(
+        [Flight Dim].[Flight ID].[Flight ID].Members, 
+       [Measures].[ELAPSED TIME]
+    )
+MEMBER [Measures].[Total Crs Elapsed Time] AS 
+    SUM(
+        [Flight Dim].[Flight ID].[Flight ID].Members, 
+      [Measures].[CRS ELAPSED TIME]
+    )
+MEMBER [Measures].[Elapsed Time Delay] AS 
+     [Measures].[Total Crs Elapsed Time] - [Measures].[Total Elapsed Time]
+SELECT 
+    {[Measures].[Total Elapsed Time],[Measures].[Total Crs Elapsed Time],  [Measures].[Elapsed Time Delay] } ON COLUMNS, 
+    DRILLDOWNLEVEL(
+        {[Time Dim].[Year_Quater].[Year].&[2020]:[Time Dim].[Year_Quater].[Year].&[2023]}
+    ) ON ROWS
+FROM [FilghtDelay]

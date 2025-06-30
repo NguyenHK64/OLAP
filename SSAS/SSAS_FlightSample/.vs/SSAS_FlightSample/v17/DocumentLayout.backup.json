@@ -1,0 +1,72 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|solutionrelative:Flight Sample.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Time Dim.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|solutionrelative:Time Dim.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{66E340A6-B787-4F86-B3DD-62E79CFFB97A}|SSAS_FlightSample.dwproj|solutionrelative:Flight Sample.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Flight Sample.cube [Design]",
+              "DocumentMoniker": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.cube",
+              "RelativeDocumentMoniker": "Flight Sample.cube",
+              "ToolTip": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.cube [Design]",
+              "RelativeToolTip": "Flight Sample.cube [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-10-24T17:47:53.472Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{7cc9e714-2774-4fc6-8631-a07eee703286}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Time Dim.dim [Design]",
+              "DocumentMoniker": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Time Dim.dim",
+              "RelativeDocumentMoniker": "Time Dim.dim",
+              "ToolTip": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Time Dim.dim [Design]",
+              "RelativeToolTip": "Time Dim.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-10-24T17:47:33.674Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Flight Sample.dsv [Design]",
+              "DocumentMoniker": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.dsv",
+              "RelativeDocumentMoniker": "Flight Sample.dsv",
+              "ToolTip": "D:\\H_K_N\\HK1_Y3\\OLAP\\\u0111\u1ED3 \u00E1n\\SSAS\\SSAS_FlightSample\\Flight Sample.dsv [Design]",
+              "RelativeToolTip": "Flight Sample.dsv [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-10-24T17:46:35.47Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
